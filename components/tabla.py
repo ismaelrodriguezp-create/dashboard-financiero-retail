@@ -11,10 +11,17 @@ def tabla_categorias(df):
         Costo=("gastos", "sum")
     ).reset_index()
 
-    resumen["Margen %"] = ((resumen["Ingresos"] - resumen["Costo"]) / resumen["Ingresos"] * 100).round(1)
+    resumen["Margen"] = ((resumen["Ingresos"] - resumen["Costo"]) / resumen["Ingresos"] * 100).round(1)
+
+    def estado(m):
+        if m >= 35: return "🟢 Alto"
+        elif m >= 20: return "🟡 Regular"
+        else: return "🔴 Bajo"
+
+    resumen["Estado"] = resumen["Margen"].apply(estado)
     resumen["Ingresos"] = resumen["Ingresos"].apply(lambda x: f"S/ {x:,.0f}")
-    resumen["Costo"] = resumen["Costo"].apply(lambda x: f"S/ {x:,.0f}")
-    resumen["Margen %"] = resumen["Margen %"].apply(lambda x: f"{x}%")
-    resumen.columns = ["Categoría", "Ingresos", "Costo", "Margen"]
+    resumen["Costo"]    = resumen["Costo"].apply(lambda x: f"S/ {x:,.0f}")
+    resumen["Margen"]   = resumen["Margen"].apply(lambda x: f"{x}%")
+    resumen.columns     = ["Categoría", "Ingresos", "Costo", "Margen", "Estado"]
 
     st.dataframe(resumen, use_container_width=True, hide_index=True)
