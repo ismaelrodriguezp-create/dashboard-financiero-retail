@@ -16,12 +16,15 @@ def mostrar_metas(df, meta_ingresos, meta_utilidad):
     ingresos = df["ingresos"].sum()
     utilidad = ingresos - df["gastos"].sum()
 
-    porc_ing = min(ingresos / meta_ingresos, 1.0) if meta_ingresos > 0 else 0
+    porc_ing  = min(ingresos / meta_ingresos, 1.0) if meta_ingresos > 0 else 0
     porc_util = min(utilidad / meta_utilidad, 1.0) if meta_utilidad > 0 else 0
 
     st.markdown("""
-    <div style="background:white; border-radius:16px; padding:20px 24px; border:1px solid #E2E8F0; box-shadow:0 2px 8px rgba(15,32,68,0.06);">
-        <p style="margin:0 0 16px; font-size:14px; font-weight:600; color:#0F2044;">🎯 Progreso hacia metas del mes</p>
+    <div style="background:white; border-radius:16px; padding:20px 24px;
+                border:1px solid #E2E8F0; box-shadow:0 2px 8px rgba(15,32,68,0.06);">
+        <p style="margin:0 0 16px; font-size:14px; font-weight:600; color:#0F2044;">
+            🎯 Progreso hacia metas del mes
+        </p>
     """, unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
